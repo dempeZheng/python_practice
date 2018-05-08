@@ -8,27 +8,25 @@ class DBHelper():
         self.passwd = passwd
         self.db = db
         self.port = port
-        for k, w in kw.iteritems():
-            setattr(self, k, w)
 
     def getCon(self):
         try:
             conn = pymysql.connect(self.host, self.user, self.passwd, self.db, self.port,
                                    charset='utf8')
             return conn
-        except pymysql.Error, e:
-            print "Mysqldb Error:%s" % e
+        except pymysql.Error as e:
+            print("Mysqldb Error:%s" % e)
 
     def select(self, sql):
-        print sql
+        print (sql)
         try:
             con = self.getCon()
             cur = con.cursor(pymysql.cursors.DictCursor)
             cur.execute(sql)
             fc = cur.fetchall()
             return fc
-        except pymysql.Error, e:
-            print "Mysqldb Error:%s" % e
+        except pymysql.Error as e:
+            print("Mysqldb Error:%s" % e)
         finally:
             cur.close()
             con.close()
@@ -40,9 +38,9 @@ class DBHelper():
             count = cur.execute(sql)
             con.commit()
             return count
-        except pymysql.Error, e:
+        except pymysql.Error as e:
             con.rollback()
-            print "Mysqldb Error:%s" % e
+            print("Mysqldb Error:%s" % e)
         finally:
             cur.close()
             con.close()
@@ -54,9 +52,9 @@ class DBHelper():
             count = cur.execute(sql, params)
             con.commit()
             return count
-        except pymysql.Error, e:
+        except pymysql.Error as e:
             con.rollback()
-            print "Mysqldb Error:%s" % e
+            print("Mysqldb Error:%s" % e)
         finally:
             cur.close()
             con.close()
@@ -68,9 +66,9 @@ class DBHelper():
             count = cur.execute(sql)
             con.commit()
             return count
-        except pymysql.Error, e:
+        except pymysql.Error as e:
             con.rollback()
-            print "Mysqldb Error:%s" % e
+            print ("Mysqldb Error:%s" % e)
         finally:
             cur.close()
             con.close()
