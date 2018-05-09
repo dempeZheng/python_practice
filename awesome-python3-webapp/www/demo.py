@@ -1,7 +1,7 @@
 'testing code'
 
 import orm, uuid
-from .models import User, Blog, Comment
+from models import User, Blog, Comment
 import asyncio
 
 
@@ -15,10 +15,20 @@ async def test():
     await u.save()
 
 
+async def findAll():
+    await orm.create_pool(loop=loop, host='192.168.147.129', user='root', password='mysql', db='awesome')
+    print("------------")
+    users = await User.findAll(limit=(0, 10))
+    for user in users:
+        print(user)
+
+
 # 获取EventLoop:
 loop = asyncio.get_event_loop()
 
-for i in range(100):
-    # 把协程丢到EventLoop中执行
-    loop.run_until_complete(test())
+# for i in range(10):
+#     # 把协程丢到EventLoop中执行
+#     loop.run_until_complete(test())
 
+
+loop.run_until_complete(findAll())
